@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amanda Gutierrez Turesso</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Paleta (igual ao Figma) ---------- */
+    :root {
+      --branco: #D3D9D9;
+      --azul-claro: #B1C0C5;
+      --cinza: #353940;
+      --azul: #098698;
+      --azul-escuro: #0D111F;
+      --preto: #111111;
+      --img-placeholder: #454F4F;
+      --largura: 1080px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--azul-escuro);
+      color: #fff;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img { display: block; }
+
+    .container {
+      width: min(var(--largura), 100% - 48px);
+      margin-inline: auto;
+    }
+
+    /* Compensa o header fixo ao pular para uma seção */
+    section { scroll-margin-top: 80px; }
+
+    /* ---------- Header ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: linear-gradient(90deg, rgba(17, 17, 17, 0) 0%, var(--azul) 100%);
+      backdrop-filter: blur(4px);
+    }
+
+    .header-conteudo {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      font-size: 24px;
+      font-weight: 300;
+      color: var(--azul);
+    }
+
+    .logo-img {
+      width: 50px;
+      height: 48px;
+      border-radius: 4px;
+      border: 2px solid var(--azul);
+      background: var(--img-placeholder);
+      object-fit: cover;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 10px;
+      list-style: none;
+    }
+
+    nav a {
+      display: block;
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+
+    nav a:hover { background: var(--azul); }
+
+    /* ---------- Títulos de seção ---------- */
+    .titulo-secao {
+      display: inline-block;
+      font-size: 48px;
+      font-weight: 300;
+      padding: 0 10px;
+      border-bottom: 4px solid var(--azul);
+    }
+
+    .secao { padding-top: 122px; }
+    .secao .titulo-secao { margin-bottom: 92px; }
+
+    /* ---------- Início ---------- */
+    #inicio { padding-top: 82px; }
+
+    .frase {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 92px;
+    }
+
+    .frase p {
+      max-width: 725px;
+      padding-right: 24px;
+      border-right: 2px solid var(--azul);
+      text-align: right;
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--branco);
+    }
+
+    .nome {
+      font-size: 32px;
+      font-weight: 300;
+      text-transform: uppercase;
+      margin-bottom: 0;
+    }
+
+    .nome span {
+      font-size: 56px;
+      color: var(--azul);
+    }
+
+    .faixa-fotos {
+      background: rgba(53, 57, 64, 0.35);
+      padding: 20px 0;
+    }
+
+    /* Carrossel: role para o lado com o mouse, trackpad ou dedo */
+    .carrossel {
+      display: flex;
+      gap: 25px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 10px 0 14px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--azul) transparent;
+    }
+
+    .carrossel img {
+      height: 256px;
+      width: auto;
+      min-width: 144px;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      border-radius: 4px;
+      border: 2px solid var(--azul);
+      box-shadow: 0 0 16px rgba(9, 134, 152, 0.6);
+      background: var(--img-placeholder);
+      object-fit: cover;
+      color: transparent; /* esconde o texto alt enquanto a foto não existe */
+    }
+
+    /* ---------- Gostos (grade 2x2) ---------- */
+    .grid-gostos {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .card-gosto {
+      display: flex;
+      height: 186px;
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card-gosto:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(9, 134, 152, 0.45);
+    }
+
+    .card-gosto .foto-vazia,
+    .card-gosto img {
+      width: 186px;
+      flex-shrink: 0;
+      background: var(--img-placeholder);
+      object-fit: cover;
+      color: transparent;
+    }
+
+    .card-gosto div {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10px 40px;
+      background: var(--branco);
+      color: var(--preto);
+    }
+
+    .card-gosto h3 { font-size: 32px; font-weight: 300; }
+    .card-gosto p { font-size: 22px; font-weight: 300; }
+
+    /* ---------- Curiosidades ---------- */
+    .lista-curiosidades {
+      list-style: none;
+      padding-bottom: 160px;
+    }
+
+    .lista-curiosidades li {
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      padding: 10px 36px;
+      background: var(--branco);
+      color: var(--preto);
+      font-size: 22px;
+      font-weight: 300;
+      border-bottom: 2px solid rgba(53, 57, 64, 0.15);
+      transition: background 0.2s, padding 0.2s;
+    }
+
+    .lista-curiosidades li:first-child { border-radius: 4px 4px 0 0; }
+    .lista-curiosidades li:last-child { border-radius: 0 0 4px 4px; border-bottom: none; }
+
+    .lista-curiosidades li:hover {
+      background: var(--azul-claro);
+      padding-left: 48px;
+    }
+
+    /* ---------- Telas internas (Amigos, Músicas, Hobbies, Jogos) ---------- */
+    /* Ficam escondidas e aparecem pelo #link (ex.: index.html#jogos), sem JavaScript */
+    .tela { display: none; padding: 122px 0 160px; }
+    .tela:target { display: block; }
+
+    /* Quando uma tela interna está aberta, a landing some */
+    main:has(.tela:target) .landing { display: none; }
+
+    .tela-topo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 32px;
+      margin-bottom: 92px;
+    }
+
+    .btn-voltar {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px 12px 16px;
+      border-radius: 4px;
+      background: var(--azul);
+      font-size: 16px;
+      transition: filter 0.2s, transform 0.2s;
+    }
+
+    .btn-voltar:hover {
+      filter: brightness(1.15);
+      transform: translateX(-3px);
+    }
+
+    .lista-cards {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .card {
+      display: flex;
+      min-height: 160px;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(9, 134, 152, 0.25);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(9, 134, 152, 0.45);
+    }
+
+    .card-img {
+      flex: 0 0 160px;
+      width: 160px;
+      background: var(--img-placeholder);
+      object-fit: cover;
+    }
+
+    .card-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      padding: 24px 40px;
+      background: var(--branco);
+    }
+
+    .card-titulo { font-size: 28px; font-weight: 400; color: var(--preto); }
+    .card-sub { font-size: 16px; font-weight: 500; color: var(--azul); }
+    .card-desc { font-size: 18px; font-weight: 300; color: var(--cinza); }
+
+    /* ---------- Footer / Contatos ---------- */
+    footer {
+      background: var(--azul);
+      padding: 74px 0;
+    }
+
+    footer h2 {
+      font-size: 32px;
+      font-weight: 400;
+      margin-bottom: 80px;
+    }
+
+    .contatos {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px 24px;
+    }
+
+    .contatos a {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 16px;
+      font-weight: 300;
+      word-break: break-word;
+    }
+
+    .contatos svg { flex-shrink: 0; }
+    .contatos a:hover { text-decoration: underline; }
+
+    /* ---------- Responsivo ---------- */
+    @media (max-width: 900px) {
+      .grid-gostos { grid-template-columns: 1fr; }
+      .contatos { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .header-conteudo { height: auto; padding: 12px 0; flex-direction: column; gap: 8px; }
+      nav ul { gap: 4px; flex-wrap: wrap; justify-content: center; }
+      nav a { padding: 8px 12px; font-size: 14px; }
+      section { scroll-margin-top: 130px; }
+
+      .titulo-secao { font-size: 36px; }
+      .secao { padding-top: 72px; }
+      .secao .titulo-secao { margin-bottom: 48px; }
+
+      #inicio { padding-top: 48px; }
+      .frase { margin-bottom: 48px; }
+      .frase p { font-size: 20px; }
+      .nome { font-size: 20px; }
+      .nome span { font-size: 36px; }
+      .carrossel img { height: 180px; min-width: 100px; }
+
+      .card-gosto { height: 130px; }
+      .card-gosto .foto-vazia,
+    .card-gosto img { width: 130px; }
+      .card-gosto div { padding: 10px 20px; }
+      .card-gosto h3 { font-size: 24px; }
+      .card-gosto p { font-size: 16px; }
+
+      .lista-curiosidades { padding-bottom: 96px; }
+      .lista-curiosidades li { font-size: 16px; padding: 16px 20px; }
+      .lista-curiosidades li:hover { padding-left: 28px; }
+
+      .tela { padding: 64px 0 96px; }
+      .tela-topo { margin-bottom: 48px; }
+      .card { min-height: 120px; }
+      .card-img { flex-basis: 100px; width: 100px; }
+      .card-info { padding: 16px 20px; }
+      .card-titulo { font-size: 20px; }
+      .card-sub { font-size: 13px; }
+      .card-desc { font-size: 15px; }
+
+      .contatos { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-conteudo">
+      <a class="logo" href="#inicio">
+        <img class="logo-img" src="img/logo.jpg" alt="">
+        AMANDA
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#gostos">Gostos</a></li>
+          <li><a href="#curiosidades">Curiosidades</a></li>
+          <li><a href="#contatos">Contatos</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <div class="landing">
+
+      <!-- ===================== INÍCIO ===================== -->
+      <section id="inicio">
+        <div class="container frase">
+          <p>Na verdade, eu vou ter que fingir que eu me conheço para me apresentar :P</p>
+        </div>
+
+        <h1 class="container nome"><span>Amanda</span> Gutierrez Turesso</h1>
+
+        <div class="faixa-fotos">
+          <!-- Coloque as fotos na pasta "img" com estes nomes (exporte do Figma) -->
+          <div class="container carrossel">
+            <img src="img/eu_lingua_inteira.jpg" alt="Foto da Amanda">
+            <img src="img/amandinha_9.jpg" alt="Foto da Amanda">
+            <img src="img/amandinha_amigas.jpg" alt="Amanda com as amigas">
+            <img src="img/amandinha_casamento.jpg" alt="Amanda em um casamento">
+            <img src="img/amandinha_cubo.jpg" alt="Amanda com um cubo mágico">
+            <img src="img/amandinha_de_vestido.jpg" alt="Amanda de vestido">
+            <img src="img/amandinha_e_irma_uniforme.jpg" alt="Amanda e a irmã de uniforme">
+            <img src="img/amandinha_e_irma_xuxa.jpg" alt="Amanda e a irmã">
+            <img src="img/amandinha_escola.jpg" alt="Amanda na escola">
+            <img src="img/amandinha_escoteira.jpg" alt="Amanda escoteira">
+            <img src="img/amandinha_fantasia.jpg" alt="Amanda fantasiada">
+            <img src="img/amandinha_jardim.jpg" alt="Amanda no jardim">
+            <img src="img/amandinha_lingua.jpg" alt="Amanda mostrando a língua">
+            <img src="img/amandinha_touca.jpg" alt="Amanda de touca">
+            <img src="img/amandinha_vestido.jpg" alt="Amanda de vestido">
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== GOSTOS ===================== -->
+      <section id="gostos" class="container secao">
+        <h2 class="titulo-secao">Gostos</h2>
+
+        <div class="grid-gostos">
+          <a class="card-gosto" href="#musicas">
+            <img src="img/gosto_musicas.jpg" alt="">
+            <div>
+              <h3>Músicas</h3>
+              <p>O que eu escuto no metrô</p>
+            </div>
+          </a>
+          <a class="card-gosto" href="#jogos">
+            <img src="img/gosto_jogos.jpg" alt="">
+            <div>
+              <h3>Jogos</h3>
+              <p>Vem jogar comigo plis</p>
+            </div>
+          </a>
+          <a class="card-gosto" href="#hobbies">
+            <img src="img/gosto_hobbies.jpg" alt="">
+            <div>
+              <h3>Hobbies</h3>
+              <p>O plural de "hobby"</p>
+            </div>
+          </a>
+          <a class="card-gosto" href="#amigos">
+            <img src="img/gosto_amigos.jpg" alt="">
+            <div>
+              <h3>Amigos</h3>
+              <p>Pessoas especiais para mim &lt;3</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ===================== CURIOSIDADES ===================== -->
+      <section id="curiosidades" class="container secao">
+        <h2 class="titulo-secao">Curiosidades</h2>
+
+        <ul class="lista-curiosidades">
+          <li>Eu não tenho olfato e nunca senti cheiro (anosmia) :D</li>
+          <li>Eu nunca viajei pra fora do Brasil</li>
+          <li>Eu moro na cidade com a maior densidade demográfica na América do Sul</li>
+          <li>Eu descasco a banana inteira antes de comer :P</li>
+          <li>Em 2025, eu fiquei de recuperação final em: Convivência Social KKKKKKKK</li>
+        </ul>
+      </section>
+
+    </div>
+
+    <div class="container">
+
+    <!-- ===================== TELA AMIGOS ===================== -->
+    <section class="tela" id="amigos">
+      <div class="tela-topo">
+        <a class="btn-voltar" href="#gostos">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Voltar
+        </a>
+        <h1 class="titulo-secao">Amigos</h1>
+      </div>
+
+      <ul class="lista-cards">
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do amigo(a)</h2>
+            <p class="card-sub">Amigos desde 20XX</p>
+            <p class="card-desc">Como a gente se conheceu e por que essa pessoa é especial.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do amigo(a)</h2>
+            <p class="card-sub">Amigos desde 20XX</p>
+            <p class="card-desc">Uma lembrança engraçada que vivemos juntos.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do amigo(a)</h2>
+            <p class="card-sub">Amigos desde 20XX</p>
+            <p class="card-desc">O que a gente mais gosta de fazer junto.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do amigo(a)</h2>
+            <p class="card-sub">Amigos desde 20XX</p>
+            <p class="card-desc">Uma qualidade que eu admiro nessa pessoa.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do amigo(a)</h2>
+            <p class="card-sub">Amigos desde 20XX</p>
+            <p class="card-desc">Um lugar que é a nossa cara.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do amigo(a)</h2>
+            <p class="card-sub">Amigos desde 20XX</p>
+            <p class="card-desc">Uma piada interna que só a gente entende.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do amigo(a)</h2>
+            <p class="card-sub">Amigos desde 20XX</p>
+            <p class="card-desc">Como a gente se conheceu e por que essa pessoa é especial.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do amigo(a)</h2>
+            <p class="card-sub">Amigos desde 20XX</p>
+            <p class="card-desc">Uma lembrança engraçada que vivemos juntos.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do amigo(a)</h2>
+            <p class="card-sub">Amigos desde 20XX</p>
+            <p class="card-desc">O que a gente mais gosta de fazer junto.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do amigo(a)</h2>
+            <p class="card-sub">Amigos desde 20XX</p>
+            <p class="card-desc">Uma qualidade que eu admiro nessa pessoa.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== TELA MÚSICAS ===================== -->
+    <section class="tela" id="musicas">
+      <div class="tela-topo">
+        <a class="btn-voltar" href="#gostos">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Voltar
+        </a>
+        <h1 class="titulo-secao">Músicas</h1>
+      </div>
+
+      <ul class="lista-cards">
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome da música</h2>
+            <p class="card-sub">Artista · Álbum</p>
+            <p class="card-desc">Por que essa música é especial para mim.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome da música</h2>
+            <p class="card-sub">Artista · Álbum</p>
+            <p class="card-desc">Quando eu costumo ouvir essa música.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome da música</h2>
+            <p class="card-sub">Artista · Álbum</p>
+            <p class="card-desc">O trecho que eu mais gosto e o motivo.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome da música</h2>
+            <p class="card-sub">Artista · Álbum</p>
+            <p class="card-desc">Uma lembrança que essa música me traz.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome da música</h2>
+            <p class="card-sub">Artista · Álbum</p>
+            <p class="card-desc">Com quem eu gosto de ouvir essa música.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome da música</h2>
+            <p class="card-sub">Artista · Álbum</p>
+            <p class="card-desc">Essa não sai da minha playlist.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome da música</h2>
+            <p class="card-sub">Artista · Álbum</p>
+            <p class="card-desc">Por que essa música é especial para mim.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome da música</h2>
+            <p class="card-sub">Artista · Álbum</p>
+            <p class="card-desc">Quando eu costumo ouvir essa música.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome da música</h2>
+            <p class="card-sub">Artista · Álbum</p>
+            <p class="card-desc">O trecho que eu mais gosto e o motivo.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome da música</h2>
+            <p class="card-sub">Artista · Álbum</p>
+            <p class="card-desc">Uma lembrança que essa música me traz.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== TELA HOBBIES ===================== -->
+    <section class="tela" id="hobbies">
+      <div class="tela-topo">
+        <a class="btn-voltar" href="#gostos">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Voltar
+        </a>
+        <h1 class="titulo-secao">Hobbies</h1>
+      </div>
+
+      <ul class="lista-cards">
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do hobby</h2>
+            <p class="card-sub">Desde 20XX · Toda semana</p>
+            <p class="card-desc">Como comecei e o que mais gosto nesse hobby.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do hobby</h2>
+            <p class="card-sub">Desde 20XX · De vez em quando</p>
+            <p class="card-desc">O que eu aprendi praticando.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do hobby</h2>
+            <p class="card-sub">Desde 20XX · Nas férias</p>
+            <p class="card-desc">Onde e com quem eu costumo praticar.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do hobby</h2>
+            <p class="card-sub">Desde 20XX · Toda semana</p>
+            <p class="card-desc">Algo que eu quero conquistar nesse hobby.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do hobby</h2>
+            <p class="card-sub">Desde 20XX · De vez em quando</p>
+            <p class="card-desc">Por que esse hobby me relaxa.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do hobby</h2>
+            <p class="card-sub">Desde 20XX · Nas férias</p>
+            <p class="card-desc">Uma dica para quem quer começar.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do hobby</h2>
+            <p class="card-sub">Desde 20XX · Toda semana</p>
+            <p class="card-desc">Como comecei e o que mais gosto nesse hobby.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do hobby</h2>
+            <p class="card-sub">Desde 20XX · De vez em quando</p>
+            <p class="card-desc">O que eu aprendi praticando.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do hobby</h2>
+            <p class="card-sub">Desde 20XX · Nas férias</p>
+            <p class="card-desc">Onde e com quem eu costumo praticar.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do hobby</h2>
+            <p class="card-sub">Desde 20XX · Toda semana</p>
+            <p class="card-desc">Algo que eu quero conquistar nesse hobby.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== TELA JOGOS ===================== -->
+    <section class="tela" id="jogos">
+      <div class="tela-topo">
+        <a class="btn-voltar" href="#gostos">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Voltar
+        </a>
+        <h1 class="titulo-secao">Jogos</h1>
+      </div>
+
+      <ul class="lista-cards">
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do jogo</h2>
+            <p class="card-sub">Plataforma · Gênero</p>
+            <p class="card-desc">Por que eu gosto desse jogo e há quanto tempo jogo.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do jogo</h2>
+            <p class="card-sub">Plataforma · Gênero</p>
+            <p class="card-desc">Minha conquista favorita nesse jogo.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do jogo</h2>
+            <p class="card-sub">Plataforma · Gênero</p>
+            <p class="card-desc">Me chama pra jogar! Meu usuário: seu_usuario</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do jogo</h2>
+            <p class="card-sub">Plataforma · Gênero</p>
+            <p class="card-desc">Meu personagem ou modo favorito.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do jogo</h2>
+            <p class="card-sub">Plataforma · Gênero</p>
+            <p class="card-desc">Com quem eu costumo jogar.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do jogo</h2>
+            <p class="card-sub">Plataforma · Gênero</p>
+            <p class="card-desc">Uma fase que me deu muito trabalho.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do jogo</h2>
+            <p class="card-sub">Plataforma · Gênero</p>
+            <p class="card-desc">Por que eu gosto desse jogo e há quanto tempo jogo.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do jogo</h2>
+            <p class="card-sub">Plataforma · Gênero</p>
+            <p class="card-desc">Minha conquista favorita nesse jogo.</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do jogo</h2>
+            <p class="card-sub">Plataforma · Gênero</p>
+            <p class="card-desc">Me chama pra jogar! Meu usuário: seu_usuario</p>
+          </div>
+        </li>
+
+        <li class="card">
+          <!-- Troque a div abaixo por: <img class="card-img" src="sua-foto.jpg" alt="descrição da foto"> -->
+          <div class="card-img"></div>
+          <div class="card-info">
+            <h2 class="card-titulo">Nome do jogo</h2>
+            <p class="card-sub">Plataforma · Gênero</p>
+            <p class="card-desc">Meu personagem ou modo favorito.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    </div>
+
+  </main>
+
+  <!-- ===================== CONTATOS ===================== -->
+  <footer id="contatos">
+    <div class="container">
+      <h2>Contatos</h2>
+      <ul class="contatos">
+        <li><a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M15 8h-1.5A2.5 2.5 0 0 0 11 10.5V21M9 13h5"/></svg>Amanda Gutierrez Turesso</a></li>
+        <li><a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v5M8 8v.01M12 16v-5M16 16v-3a2 2 0 0 0-4 0"/></svg>Amanda Guti</a></li>
+        <li><a href="https://github.com/amanda20260010-max"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>amanda20260010-max</a></li>
+        <li><a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M7.5 9.5c3-1 6.5-.7 9 .8M8 12.5c2.5-.7 5.3-.4 7.3.7M8.5 15.3c2-.5 4-.3 5.7.5"/></svg>Gtieez</a></li>
+        <li><a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5v.01"/></svg>gut_1errez</a></li>
+        <li><a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.7-4.6A9 9 0 1 1 8 19.5L3 21"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg>+55 (11) 95366-6814</a></li>
+        <li><a href="mailto:amandagturesso@gmail.com"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>amandagturesso@gmail.com</a></li>
+        <li><a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 2.5 21.5 6.2 17.8 21.5 2.5 17.8z"/><path d="M10.5 10.5l3 .7-.7 3-3-.7z"/></svg>Amanda_Guti</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
