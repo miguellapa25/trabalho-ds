@@ -1,0 +1,807 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angel 💕</title>
+    <link rel="icon" href="imagens/louvre-paris/furao.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --marrom: #594333;
+            --marromEscuro: #3b2b20;
+            --marromClaro: #a68a76;
+            --creme: #faf6f0;
+            --bege: #eedecf;
+            --rosa: #fca3b5;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--creme);
+            color: #40372f;
+        }
+
+        header {
+            background-color: white;
+            border-bottom: 3px solid var(--bege);
+            padding: 15px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 3px 12px rgba(89, 67, 51, 0.06);
+        }
+
+        .logo {
+            color: var(--marrom);
+            font-size: 23px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: #d88e9f;
+        }
+
+        .furaoLogo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            object-position: bottom;
+            margin-bottom: -12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--marrom);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 10px 13px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        nav a:hover,
+        nav a.ativo {
+            background-color: var(--marrom);
+            color: white;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 45px 35px;
+        }
+
+        .parte {
+            margin-bottom: 65px;
+            scroll-margin-top: 170px;
+        }
+
+        .titulo {
+            border-bottom: 3px solid var(--bege);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .titulo h2 {
+            color: var(--marrom);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .titulo p {
+            color: var(--marromClaro);
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .caixa {
+            background-color: white;
+            border: 2px solid var(--bege);
+            border-radius: 24px;
+            padding: 28px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 12px rgba(89, 67, 51, 0.05);
+        }
+
+        .apresentacao {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            min-height: 270px;
+            position: relative;
+        }
+
+        .fotoPrincipal {
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--bege);
+            flex-shrink: 0;
+        }
+
+        .textoApresentacao {
+            padding-right: 125px;
+            flex: 1;
+        }
+
+        .textoApresentacao h1 {
+            color: var(--marrom);
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .textoApresentacao p {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .frase {
+            display: inline-block;
+            background-color: #fce8ed;
+            color: #a65d70;
+            padding: 9px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 18px;
+        }
+
+        .furaoInicio {
+            position: absolute;
+            right: 25px;
+            bottom: 20px;
+            width: 115px;
+            height: 115px;
+            object-fit: contain;
+            pointer-events: none;
+        }
+
+        .caixaFotos {
+            position: relative;
+            padding-bottom: 75px;
+        }
+
+        .minhasFotos {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .foto {
+            background-color: var(--creme);
+            border: 2px solid var(--bege);
+            padding: 10px;
+            border-radius: 20px;
+            transition: 0.3s;
+            overflow: hidden;
+        }
+
+        .foto:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 7px 15px rgba(89, 67, 51, 0.12);
+        }
+
+        .foto img {
+            width: 100%;
+            height: 270px;
+            object-fit: cover;
+            border-radius: 14px;
+            display: block;
+        }
+
+        .furaoFotos {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            right: 18px;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .minhasReceitas {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .receita {
+            background: white;
+            border: 2px solid var(--bege);
+            border-radius: 20px;
+            padding: 10px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .receita:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 7px 15px rgba(89, 67, 51, 0.12);
+        }
+
+        .receita img {
+            display: block;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 14px;
+        }
+
+        .caixaCuriosidades {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .listaCuriosidades {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 13px;
+            list-style: none;
+            flex: 1;
+        }
+
+        .listaCuriosidades li {
+            background: var(--creme);
+            border: 1px solid var(--bege);
+            padding: 18px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--marrom);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .listaCuriosidades li i {
+            color: #c58d83;
+            font-size: 17px;
+            width: 22px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .furaoCuriosidades {
+            width: 115px;
+            height: 115px;
+            object-fit: contain;
+            flex-shrink: 0;
+            align-self: flex-end;
+        }
+
+        .separador {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px auto 55px;
+            max-width: 500px;
+        }
+
+        .linha {
+            height: 2px;
+            background: var(--bege);
+            flex: 1;
+        }
+
+        .separador i {
+            color: #d89aa5;
+            font-size: 18px;
+        }
+
+        .listaLugares {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .lugar {
+            background: white;
+            border: 2px solid var(--bege);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .lugar:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 7px 15px rgba(89, 67, 51, 0.12);
+        }
+
+        .fotoLugar {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .textoLugar {
+            padding: 20px;
+        }
+
+        .textoLugar h3 {
+            color: var(--marrom);
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .textoLugar a {
+            color: #a47b69;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .textoLugar a:hover {
+            text-decoration: underline;
+        }
+
+        .tipoLugar {
+            font-size: 10px;
+            font-weight: 700;
+            color: #a47b69;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .tituloSonhos {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .furaoSonhos {
+            width: 95px;
+            height: 95px;
+            object-fit: contain;
+            flex-shrink: 0;
+            margin-bottom: -10px;
+        }
+
+        .fim {
+            text-align: center;
+            background: var(--bege);
+            border-radius: 22px;
+            padding: 35px 25px;
+            margin-top: 45px;
+        }
+
+        .fim h3 {
+            color: var(--marrom);
+            margin-bottom: 12px;
+        }
+
+        .fim p {
+            font-size: 13px;
+            color: #786657;
+            margin-bottom: 18px;
+        }
+
+        .fim a {
+            display: inline-block;
+            background: var(--marrom);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .fim a:hover {
+            background: var(--marromEscuro);
+        }
+
+        footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 22px;
+            color: var(--marromClaro);
+            font-size: 12px;
+            border-top: 2px solid var(--bege);
+            background: white;
+        }
+
+        footer i {
+            color: #d88e9f;
+        }
+
+        /* Ajustes para celular */
+
+        @media (max-width: 850px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            main {
+                padding: 30px 20px;
+            }
+
+            .textoApresentacao {
+                padding-right: 105px;
+            }
+
+            .minhasFotos,
+            .minhasReceitas {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 550px) {
+            nav a {
+                font-size: 10px;
+                padding: 8px;
+            }
+
+            .titulo h2 {
+                font-size: 19px;
+            }
+
+            .apresentacao {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .textoApresentacao {
+                padding-right: 0;
+                padding-bottom: 85px;
+            }
+
+            .textoApresentacao h1 {
+                font-size: 23px;
+            }
+
+            .furaoInicio {
+                width: 85px;
+                height: 85px;
+                right: 15px;
+                bottom: 10px;
+            }
+
+            .minhasFotos,
+            .minhasReceitas,
+            .listaLugares {
+                grid-template-columns: 1fr;
+            }
+
+            .foto img,
+            .receita img {
+                height: 250px;
+            }
+
+            .caixaCuriosidades {
+                flex-direction: column;
+            }
+
+            .listaCuriosidades {
+                grid-template-columns: 1fr;
+                width: 100%;
+            }
+
+            .furaoCuriosidades {
+                align-self: flex-end;
+                width: 85px;
+                height: 85px;
+            }
+
+            .furaoFotos {
+                width: 75px;
+                height: 75px;
+                right: 10px;
+            }
+
+            .furaoSonhos {
+                width: 65px;
+                height: 65px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Menu -->
+
+    <header>
+        <div class="logo">
+            <img src="imagens/louvre-paris/furão_4_escondido.png" alt="Furão" class="furaoLogo">
+            Angel <span>💕</span>
+        </div>
+
+        <nav>
+            <a href="#inicio" class="ativo">Início</a>
+            <a href="#fotos">Minhas fotos</a>
+            <a href="#curiosidades">Curiosidades</a>
+            <a href="#receitas">Minhas receitas</a>
+            <a href="#visitados">Lugares visitados</a>
+            <a href="#sonhos">Meus sonhos</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Apresentacao -->
+
+        <section class="parte" id="inicio">
+            <div class="titulo">
+                <h2>Seja bem-vindo!</h2>
+                <p>Conheça um pouquinho mais sobre mim.</p>
+            </div>
+
+            <div class="caixa apresentacao">
+                <img src="imagens/louvre-paris/Foto Angella 01.jpeg" alt="Foto da Angel" class="fotoPrincipal">
+
+                <div class="textoApresentacao">
+                    <h1>Olá, eu sou a Angel! 💕</h1>
+                    <p>
+                        Meu nome é Angella Cristina Rocha Paolillo,
+                        mas podem me chamar de Angel.
+                        Esta é minha página pessoal, onde compartilho
+                        algumas fotos, curiosidades sobre mim,
+                        receitas que já fiz e lugares que já visitei
+                        ou ainda sonho em conhecer.
+                    </p>
+                    <span class="frase">✨ Um pouquinho do meu mundo</span>
+                </div>
+
+                <img src="imagens/louvre-paris/furão_5_coracao.png" alt="Furão com coração" class="furaoInicio">
+            </div>
+        </section>
+
+        <!-- Fotos -->
+
+        <section class="parte" id="fotos">
+            <div class="titulo">
+                <h2>Minhas fotos 📸</h2>
+                <p>Alguns momentos especiais.</p>
+            </div>
+
+            <div class="caixa caixaFotos">
+                <div class="minhasFotos">
+                    <div class="foto">
+                        <img src="imagens/louvre-paris/Foto Angella 01.jpeg" alt="Foto da Angel" loading="lazy">
+                    </div>
+                    <div class="foto">
+                        <img src="imagens/louvre-paris/angel_com_irma_01.jpeg" alt="Angel com sua irmã" loading="lazy">
+                    </div>
+                    <div class="foto">
+                        <img src="imagens/louvre-paris/angel_passeio_ao_ar_livre_01.jpeg" alt="Passeio ao ar livre" loading="lazy">
+                    </div>
+                    <div class="foto">
+                        <img src="imagens/louvre-paris/angel_retrato_01.jpeg" alt="Retrato da Angel" loading="lazy">
+                    </div>
+                    <div class="foto">
+                        <img src="imagens/louvre-paris/angel_com_mae_e_irma.jpeg" alt="Angel com sua mãe e irmã" loading="lazy">
+                    </div>
+                    <div class="foto">
+                        <img src="imagens/louvre-paris/angel_passeio_ao_ar_livre_02.jpeg" alt="Passeio ao ar livre" loading="lazy">
+                    </div>
+                    <div class="foto">
+                        <img src="imagens/louvre-paris/Foto Angella 02.jpeg" alt="Foto da Angel" loading="lazy">
+                    </div>
+                    <div class="foto">
+                        <img src="imagens/louvre-paris/angel_com_irma_02.jpeg" alt="Angel com sua irmã" loading="lazy">
+                    </div>
+                    <div class="foto">
+                        <img src="imagens/louvre-paris/angel_retrato_02.jpeg" alt="Retrato da Angel" loading="lazy">
+                    </div>
+                    <div class="foto">
+                        <img src="imagens/louvre-paris/Angella com seu tio e irmã.jpeg" alt="Angel com seu tio e irmã" loading="lazy">
+                    </div>
+                    <div class="foto">
+                        <img src="imagens/louvre-paris/angel_passeio_ao_ar_livre_03.jpeg" alt="Passeio ao ar livre" loading="lazy">
+                    </div>
+                    <div class="foto">
+                        <img src="imagens/louvre-paris/Foto Angella 03.jpeg" alt="Foto da Angel" loading="lazy">
+                    </div>
+                </div>
+
+                <img src="imagens/louvre-paris/furão_2_dormindo.png" alt="Furão dormindo" class="furaoFotos">
+            </div>
+        </section>
+
+        <!-- Curiosidades -->
+
+        <section class="parte" id="curiosidades">
+            <div class="titulo">
+                <h2>Curiosidades sobre mim 💗</h2>
+                <p>Coisas que fazem parte de quem eu sou.</p>
+            </div>
+
+            <div class="caixa caixaCuriosidades">
+                <ul class="listaCuriosidades">
+                    <li><i class="fa-solid fa-utensils"></i> Amo cozinhar.</li>
+                    <li><i class="fa-solid fa-volleyball"></i> Amo jogar vôlei.</li>
+                    <li><i class="fa-solid fa-candy-cane"></i> Já vendi doces.</li>
+                    <li><i class="fa-solid fa-cake-candles"></i> Sou confeiteira (em fase de desenvolvimento kkkk).</li>
+                    <li><i class="fa-solid fa-heart"></i> Faço peças de crochê.</li>
+                    <li><i class="fa-solid fa-tv"></i> Gosto de assistir animes.</li>
+                </ul>
+
+                <img src="imagens/louvre-paris/furão_1_sentado.png" alt="Furão sentado" class="furaoCuriosidades">
+            </div>
+        </section>
+
+        <!-- Receitas -->
+
+        <section class="parte" id="receitas">
+            <div class="titulo">
+                <h2>Receitas que já fiz</h2>
+                <p>Um pouquinho das delícias que já preparei. Feitas com muito carinho! 💗</p>
+            </div>
+
+            <div class="minhasReceitas">
+                <div class="receita"><img src="imagens/louvre-paris/bolo_caseiro_cobertura_chocolate.jpeg" alt="Bolo com chocolate" loading="lazy"></div>
+                <div class="receita"><img src="imagens/louvre-paris/bolo_chocolate_decorado.jpeg" alt="Bolo decorado" loading="lazy"></div>
+                <div class="receita"><img src="imagens/louvre-paris/bolo_50_anos_vista_lateral.jpeg" alt="Bolo de aniversário" loading="lazy"></div>
+                <div class="receita"><img src="imagens/louvre-paris/bolo_50_anos_vista_superior.jpeg" alt="Bolo de 50 anos" loading="lazy"></div>
+                <div class="receita"><img src="imagens/louvre-paris/mesa_docinhos_festa_50_anos.jpeg" alt="Mesa de docinhos" loading="lazy"></div>
+                <div class="receita"><img src="imagens/louvre-paris/caixa_quatro_docinhos.jpeg" alt="Caixa com docinhos" loading="lazy"></div>
+                <div class="receita"><img src="imagens/louvre-paris/docinhos_brancos_bandeja.jpeg" alt="Docinhos brancos" loading="lazy"></div>
+                <div class="receita"><img src="imagens/louvre-paris/docinhos_brancos_forminhas.jpeg" alt="Docinhos em forminhas" loading="lazy"></div>
+                <div class="receita"><img src="imagens/louvre-paris/docinhos_azuis_bandeja.jpeg" alt="Docinhos azuis" loading="lazy"></div>
+                <div class="receita"><img src="imagens/louvre-paris/bolo_branco_preparo.jpeg" alt="Preparando o bolo" loading="lazy"></div>
+                <div class="receita"><img src="imagens/louvre-paris/docinhos_embalagens_azuis.jpeg" alt="Docinhos embalados" loading="lazy"></div>
+                <div class="receita"><img src="imagens/louvre-paris/brigadeiros_embalados_preparo.jpeg" alt="Brigadeiros" loading="lazy"></div>
+                <div class="receita"><img src="imagens/louvre-paris/docinhos_brancos_producao.jpeg" alt="Produção de docinhos" loading="lazy"></div>
+                <div class="receita"><img src="imagens/louvre-paris/docinhos_assados_assadeira.jpeg" alt="Docinhos na assadeira" loading="lazy"></div>
+            </div>
+        </section>
+
+        <div class="separador">
+            <div class="linha"></div>
+            <i class="fa-solid fa-heart"></i>
+            <div class="linha"></div>
+        </div>
+
+        <!-- Lugares visitados -->
+
+        <section class="parte" id="visitados">
+            <div class="titulo">
+                <h2>Lugares que já visitei 🌎</h2>
+                <p>Alguns lugares que tive a oportunidade de conhecer.</p>
+            </div>
+
+            <div class="listaLugares">
+                <div class="lugar">
+                    <img src="imagens/louvre-paris/Imagem de Aparecida do Norte.webp" alt="Aparecida do Norte" class="fotoLugar">
+                    <div class="textoLugar">
+                        <p class="tipoLugar">Lugar visitado</p>
+                        <h3>Aparecida do Norte</h3>
+                        <a href="https://aparecidadonorte.com/" target="_blank" rel="noopener noreferrer">Conhecer o lugar →</a>
+                    </div>
+                </div>
+
+                <div class="lugar">
+                    <img src="imagens/louvre-paris/cachoeira-vargem-do-salto.jpg" alt="Cachoeira Vargem do Salto" class="fotoLugar">
+                    <div class="textoLugar">
+                        <p class="tipoLugar">Lugar visitado</p>
+                        <h3>Cachoeira Vargem do Salto</h3>
+                        <a href="https://www.turismopaulista.tur.br/atrativo/428_cachoeira_vargem_do_salto" target="_blank" rel="noopener noreferrer">Conhecer o lugar →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="separador">
+            <div class="linha"></div>
+            <i class="fa-solid fa-star"></i>
+            <div class="linha"></div>
+        </div>
+
+        <!-- Lugares dos sonhos -->
+
+        <section class="parte" id="sonhos">
+            <div class="titulo tituloSonhos">
+                <div>
+                    <h2>Lugares que sonho em conhecer ✈️</h2>
+                    <p>Destinos que ainda quero visitar um dia.</p>
+                </div>
+                <img src="imagens/louvre-paris/furão_3_feliz.png" alt="Furão feliz" class="furaoSonhos">
+            </div>
+
+            <div class="listaLugares">
+                <div class="lugar">
+                    <img src="imagens/louvre-paris/coliseu.webp" alt="Coliseu na Itália" class="fotoLugar">
+                    <div class="textoLugar">
+                        <p class="tipoLugar">Destino dos sonhos</p>
+                        <h3>Itália 🇮🇹</h3>
+                        <a href="https://pt.wikipedia.org/wiki/Roma" target="_blank" rel="noopener noreferrer">Conhecer o lugar →</a>
+                    </div>
+                </div>
+
+                <div class="lugar">
+                    <img src="imagens/louvre-paris/download.jpg" alt="Disney" class="fotoLugar">
+                    <div class="textoLugar">
+                        <p class="tipoLugar">Destino dos sonhos</p>
+                        <h3>Disney 🏰</h3>
+                        <a href="https://pt.wikipedia.org/wiki/Disneyland" target="_blank" rel="noopener noreferrer">Conhecer o lugar →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="fim">
+            <h3>Obrigada pela visita! 💕</h3>
+            <p>Espero que tenha gostado de conhecer um pouquinho sobre mim!</p>
+            <a href="Pagina_Inicial.html">👈 Voltar para página inicial</a>
+        </div>
+
+    </main>
+
+    <footer>
+        <i class="fa-solid fa-heart"></i>
+        <p>Feito com carinho 💗 | Minha página pessoal</p>
+    </footer>
+
+    <script>
+        const linksMenu = document.querySelectorAll("nav a");
+        const partesPagina = document.querySelectorAll("main .parte");
+
+        const verificarParte = new IntersectionObserver((itens) => {
+            itens.forEach((item) => {
+                if (item.isIntersecting) {
+                    const nomeParte = item.target.id;
+
+                    linksMenu.forEach((link) => {
+                        link.classList.remove("ativo");
+
+                        if (link.getAttribute("href") === "#" + nomeParte) {
+                            link.classList.add("ativo");
+                        }
+                    });
+                }
+            });
+        }, {
+            rootMargin: "-20% 0px -60% 0px"
+        });
+
+        partesPagina.forEach((parte) => {
+            verificarParte.observe(parte);
+        });
+    </script>
+
+</body>
+</html>
