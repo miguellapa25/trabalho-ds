@@ -1,0 +1,104 @@
+name: Publicar todas as paginas no GitHub Pages
+
+on:
+  push:
+    branches: [miguel-lapa]
+    paths:
+      - ".github/workflows/publicar-branches.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  reunir-paginas:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositorio e branches
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: false
+
+      - name: Montar as paginas das branches
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin '+refs/heads/*:refs/remotes/origin/*'
+          rm -rf branches
+          mkdir -p branches
+          for branch in Amanda Angella Beatriz Pagina_inicial; do
+            mkdir -p "branches/$branch"
+            git archive "origin/$branch" | tar -x -C "branches/$branch"
+          done
+          mkdir -p branches/miguel-lapa
+          cp Pagina_Lapa.html branches/miguel-lapa/Pagina_Lapa.html
+          cp style.css branches/miguel-lapa/style.css
+          cp -R imagens branches/miguel-lapa/imagens
+          cp Pagina_Lapa.html branches/miguel-lapa/index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          from html import escape
+          base = Path('branches')
+          entrypoints = {
+              'Amanda': 'index.html',
+              'Angella': 'Pagina_Angella.html',
+              'Beatriz': 'Pagina_Beatriz.html',
+              'Pagina_inicial': 'Pagina_Inicial.html',
+          }
+          for branch, filename in entrypoints.items():
+              html = (base / branch / filename).read_text(encoding='utf-8')
+              if branch == 'Pagina_inicial':
+                  for name, dest in {
+                      'Pagina_Amanda.html': '../Amanda/',
+                      'Pagina_Angella.html': '../Angella/',
+                      'Pagina_Beatriz.html': '../Beatriz/',
+                      'Pagina_Lapa.html': '../miguel-lapa/',
+                  }.items():
+                      html = html.replace('href="' + name + '"', 'href="' + dest + '"')
+              if branch == 'Angella':
+                  html = html.replace('href="Pagina_Inicial.html"', 'href="../Pagina_inicial/"')
+              if branch == 'Beatriz':
+                  html = html.replace('href="Pagina_Inicial"', 'href="../Pagina_inicial/"')
+              (base / branch / 'index.html').write_text(html, encoding='utf-8')
+          items = [
+              ('Pagina_inicial', 'Pagina inicial do grupo'),
+              ('Amanda', 'Pagina da Amanda'),
+              ('Angella', 'Pagina da Angella'),
+              ('Beatriz', 'Pagina da Beatriz'),
+              ('miguel-lapa', 'Pagina do Miguel'),
+          ]
+          links = ''.join(f'<li><a href="{escape(folder)}/">{escape(label)}</a></li>' for folder,label in items)
+          (base / 'index.html').write_text(
+              '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
+              '<meta name="viewport" content="width=device-width, initial-scale=1">'
+              '<title>Paginas do grupo</title><style>'
+              'body{font:18px system-ui,sans-serif;max-width:760px;margin:60px auto;padding:0 24px;'
+              'background:#f7f8fa;color:#17202a}h1{font-size:2rem}li{margin:14px 0}'
+              'a{color:#124f9e}a:hover{text-decoration:none}'
+              '</style></head><body><h1>Paginas do grupo</h1>'
+              '<p>Escolha uma pagina para visitar:</p><ul>' + links + '</ul>'
+              '<p>A branch main contem apenas um README e nao possui pagina HTML.</p>'
+              '</body></html>', encoding='utf-8')
+          (base / 'main').mkdir(exist_ok=True)
+          (base / 'main' / 'index.html').write_text(
+              '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
+              '<meta name="viewport" content="width=device-width, initial-scale=1">'
+              '<title>Branch main</title></head><body><h1>Branch main</h1>'
+              '<p>Esta branch contem apenas um README, sem pagina HTML.</p>'
+              '<p><a href="../">Ver paginas publicadas</a></p></body></html>',
+              encoding='utf-8')
+          PY
+          touch .nojekyll
+
+      - name: Salvar paginas na branch miguel-lapa
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add branches .nojekyll
+          if ! git diff --cached --quiet; then
+            git commit -m "Publica paginas de todas as branches"
+            git push origin HEAD:miguel-lapa
+          fi
