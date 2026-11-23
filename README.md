@@ -1,2 +1,3 @@
 # trabalho-ds
-Trabalho da Desenvolvimento
+Trabalho de apresentação dos integrantes através de páginas
+
